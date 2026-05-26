@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Global Family</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--off-white:#F7F5F0;
+--cream:#EDE9E0;
+--charcoal:#1C1C1A;
+--warm-gray:#8A8680;
+--muted-stone:#C4BFB6;
+--earth:#7A6F5E;
+--soft-black:#111110;
+--line:#D8D4CC;
+}
+html{font-size:16px}
+body{
+background:var(--off-white);
+color:var(--charcoal);
+font-family:'DM Sans',sans-serif;
+font-weight:300;
+min-height:100vh;
+overflow-x:hidden;
+}
+.page{min-height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+nav{
+display:flex;justify-content:space-between;align-items:center;
+padding:2rem 3rem;
+border-bottom:1px solid var(--line);
+background:var(--off-white);
+position:sticky;top:0;z-index:100;
+}
+.brand{
+font-family:'Cormorant Garamond',serif;
+font-weight:300;font-size:1.35rem;
+letter-spacing:0.22em;text-transform:uppercase;
+color:var(--soft-black);
+}
+.nav-hint{
+font-size:0.7rem;letter-spacing:0.18em;
+text-transform:uppercase;color:var(--warm-gray);
+}
+
+/* HERO */
+.hero{
+flex:1;display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+text-align:center;padding:6rem 2rem 4rem;
+}
+.hero-eyebrow{
+font-size:0.68rem;letter-spacing:0.28em;text-transform:uppercase;
+color:var(--warm-gray);margin-bottom:2rem;
+opacity:0;animation:fadeUp 0.9s 0.2s ease forwards;
+}
+.hero-title{
+font-family:'Cormorant Garamond',serif;font-weight:300;
+font-size:clamp(3rem,7vw,6rem);line-height:1.08;
+color:var(--soft-black);margin-bottom:1.5rem;
+opacity:0;animation:fadeUp 0.9s 0.4s ease forwards;
+}
+.hero-title em{font-style:italic;color:var(--earth)}
+.hero-sub{
+font-size:0.9rem;letter-spacing:0.06em;color:var(--warm-gray);
+max-width:380px;line-height:1.8;margin-bottom:3.5rem;
+opacity:0;animation:fadeUp 0.9s 0.6s ease forwards;
+}
+.start-btn{
+display:inline-flex;align-items:center;gap:0.75rem;
+background:var(--soft-black);color:var(--off-white);
+font-family:'DM Sans',sans-serif;font-weight:400;
+font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+border:none;padding:1rem 2.5rem;cursor:pointer;
+transition:background 0.25s,transform 0.2s;
+opacity:0;animation:fadeUp 0.9s 0.8s ease forwards;
+}
+.start-btn:hover{background:var(--earth);transform:translateY(-1px)}
+.start-btn .arrow{font-size:1rem;transition:transform 0.2s}
+.start-btn:hover .arrow{transform:translateX(4px)}
+
+/* DIVIDER LINE */
+.ornament{
+width:1px;height:60px;background:var(--line);
+margin:3rem auto 0;
+opacity:0;animation:fadeIn 1s 1.2s ease forwards;
+}
+
+/* QUIZ SECTION */
+.quiz-wrap{
+flex:1;display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+padding:4rem 2rem;min-height:80vh;
+}
+.step-indicator{
+display:flex;gap:0.5rem;margin-bottom:3.5rem;
+}
+.step-dot{
+width:28px;height:1px;background:var(--muted-stone);
+transition:background 0.4s,width 0.4s;
+}
+.step-dot.active{background:var(--charcoal);width:48px}
+
+.quiz-question{
+font-family:'Cormorant Garamond',serif;
+font-weight:300;font-size:clamp(1.6rem,4vw,2.8rem);
+line-height:1.2;text-align:center;
+color:var(--soft-black);margin-bottom:0.75rem;
+}
+.quiz-sub{
+font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;
+color:var(--warm-gray);margin-bottom:3.5rem;text-align:center;
+}
+
+.options-grid{
+display:flex;flex-direction:column;gap:1rem;width:100%;max-width:520px;
+}
+.option-card{
+display:flex;align-items:center;gap:1.5rem;
+padding:1.5rem 2rem;border:1px solid var(--line);
+background:transparent;cursor:pointer;text-align:left;
+transition:border-color 0.2s,background 0.2s,transform 0.2s;
+position:relative;
+}
+.option-card:hover{
+border-color:var(--charcoal);background:var(--cream);
+transform:translateX(4px);
+}
+.option-card.selected{
+border-color:var(--charcoal);background:var(--charcoal);
+}
+.option-card.selected .opt-label{color:var(--off-white)}
+.option-card.selected .opt-desc{color:var(--muted-stone)}
+.option-icon{
+font-size:1.1rem;min-width:1.5rem;
+opacity:0.6;
+}
+.opt-label{
+font-size:0.92rem;letter-spacing:0.04em;
+color:var(--soft-black);font-weight:400;
+display:block;
+}
+.opt-desc{
+font-size:0.72rem;letter-spacing:0.08em;
+color:var(--warm-gray);text-transform:uppercase;
+display:block;margin-top:0.2rem;
+}
+
+.quiz-nav{
+display:flex;justify-content:space-between;align-items:center;
+width:100%;max-width:520px;margin-top:2.5rem;
+}
+.back-btn{
+font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
+color:var(--warm-gray);background:none;border:none;cursor:pointer;
+transition:color 0.2s;
+}
+.back-btn:hover{color:var(--charcoal)}
+.next-btn{
+font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
+background:var(--soft-black);color:var(--off-white);
+border:none;padding:0.85rem 2rem;cursor:pointer;
+transition:background 0.2s,opacity 0.2s;opacity:0.35;
+pointer-events:none;
+}
+.next-btn.ready{opacity:1;pointer-events:all}
+.next-btn.ready:hover{background:var(--earth)}
+
+/* RESULT PAGE */
+.result-wrap{
+flex:1;padding:4rem 2rem 6rem;max-width:900px;
+margin:0 auto;width:100%;
+}
+.result-eyebrow{
+font-size:0.68rem;letter-spacing:0.26em;text-transform:uppercase;
+color:var(--warm-gray);margin-bottom:1.5rem;text-align:center;
+}
+.result-title{
+font-family:'Cormorant Garamond',serif;font-weight:300;
+font-size:clamp(2.2rem,5vw,4rem);line-height:1.1;
+text-align:center;color:var(--soft-black);margin-bottom:0.6rem;
+}
+.result-context{
+font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+color:var(--muted-stone);text-align:center;margin-bottom:3.5rem;
+}
+.kit-meta{
+display:flex;justify-content:center;gap:2.5rem;
+margin-bottom:3rem;padding:1.5rem 0;
+border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.kit-meta-item{text-align:center}
+.kit-meta-val{
+font-family:'Cormorant Garamond',serif;
+font-size:2rem;font-weight:300;color:var(--soft-black);
+display:block;
+}
+.kit-meta-label{
+font-size:0.64rem;letter-spacing:0.18em;text-transform:uppercase;
+color:var(--warm-gray);
+}
+
+.product-grid{
+display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+gap:1.5rem;margin-bottom:3rem;
+}
+.product-card{
+background:var(--cream);padding:2rem 1.5rem 1.75rem;
+cursor:pointer;position:relative;overflow:hidden;
+transition:transform 0.25s,box-shadow 0.25s;
+border:1px solid transparent;
+}
+.product-card:hover{
+transform:translateY(-3px);
+border-color:var(--muted-stone);
+background:white;
+}
+.product-line-badge{
+font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+padding:0.25rem 0.6rem;margin-bottom:1.25rem;display:inline-block;
+}
+.badge-comfort{background:#EAE5DC;color:var(--earth)}
+.badge-adventure{background:#1C1C1A;color:#C4BFB6}
+.product-qty{
+font-family:'Cormorant Garamond',serif;
+font-size:3.5rem;font-weight:300;color:var(--line);
+line-height:1;margin-bottom:-0.5rem;
+}
+.product-name{
+font-family:'Cormorant Garamond',serif;
+font-size:1.4rem;font-weight:400;
+color:var(--soft-black);margin-bottom:0.4rem;
+line-height:1.2;
+}
+.product-material{
+font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+color:var(--warm-gray);margin-bottom:1rem;
+}
+.product-desc{
+font-size:0.8rem;line-height:1.7;color:var(--earth);
+}
+.product-arrow{
+position:absolute;bottom:1.5rem;right:1.5rem;
+font-size:0.7rem;letter-spacing:0.1em;
+text-transform:uppercase;color:var(--muted-stone);
+transition:color 0.2s,transform 0.2s;
+}
+.product-card:hover .product-arrow{
+color:var(--charcoal);transform:translateX(3px);
+}
+
+.result-actions{
+display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+padding-top:2rem;border-top:1px solid var(--line);
+}
+.action-primary{
+background:var(--soft-black);color:var(--off-white);
+border:none;padding:1rem 2.5rem;cursor:pointer;
+font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+transition:background 0.2s;
+}
+.action-primary:hover{background:var(--earth)}
+.action-secondary{
+background:transparent;color:var(--warm-gray);
+border:1px solid var(--line);padding:1rem 2rem;cursor:pointer;
+font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;
+transition:border-color 0.2s,color 0.2s;
+}
+.action-secondary:hover{border-color:var(--charcoal);color:var(--charcoal)}
+
+/* PRODUCT DETAIL PAGE */
+.product-detail{
+flex:1;padding:3rem 2rem 6rem;max-width:960px;
+margin:0 auto;width:100%;
+}
+.back-nav{
+font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+color:var(--warm-gray);background:none;border:none;cursor:pointer;
+display:flex;align-items:center;gap:0.5rem;
+margin-bottom:3.5rem;transition:color 0.2s;
+}
+.back-nav:hover{color:var(--charcoal)}
+.detail-grid{
+display:grid;grid-template-columns:1fr 1fr;gap:5rem;
+align-items:start;
+}
+.detail-visual{
+background:var(--cream);aspect-ratio:3/4;
+display:flex;align-items:center;justify-content:center;
+position:relative;overflow:hidden;
+}
+.detail-visual-inner{
+font-family:'Cormorant Garamond',serif;
+font-size:5rem;font-weight:300;color:var(--line);
+opacity:0.5;
+}
+.detail-line-badge{
+font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;
+padding:0.3rem 0.7rem;display:inline-block;margin-bottom:1.5rem;
+}
+.detail-name{
+font-family:'Cormorant Garamond',serif;font-weight:300;
+font-size:2.8rem;line-height:1.1;color:var(--soft-black);
+margin-bottom:0.5rem;
+}
+.detail-tagline{
+font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;
+color:var(--warm-gray);margin-bottom:2rem;
+}
+.detail-desc{
+font-size:0.95rem;line-height:1.9;color:var(--earth);
+margin-bottom:2.5rem;
+}
+.spec-row{
+display:flex;justify-content:space-between;
+padding:0.75rem 0;border-bottom:1px solid var(--line);
+font-size:0.8rem;
+}
+.spec-label{color:var(--warm-gray);letter-spacing:0.08em;text-transform:uppercase;font-size:0.68rem}
+.spec-value{color:var(--charcoal)}
+.detail-cta{
+margin-top:2rem;
+background:var(--soft-black);color:var(--off-white);
+border:none;padding:1.1rem 2.5rem;cursor:pointer;
+font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+width:100%;transition:background 0.2s;
+}
+.detail-cta:hover{background:var(--earth)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+from{opacity:0}to{opacity:1}
+}
+.fade-enter{
+animation:fadeUp 0.55s ease forwards;
+}
+.slide-in{
+opacity:0;transform:translateY(24px);
+animation:fadeUp 0.5s ease forwards;
+}
+.slide-in:nth-child(1){animation-delay:0.05s}
+.slide-in:nth-child(2){animation-delay:0.12s}
+.slide-in:nth-child(3){animation-delay:0.19s}
+.slide-in:nth-child(4){animation-delay:0.26s}
+.slide-in:nth-child(5){animation-delay:0.33s}
+.slide-in:nth-child(6){animation-delay:0.4s}
+
+@media(max-width:640px){
+nav{padding:1.5rem 1.5rem}
+.detail-grid{grid-template-columns:1fr;gap:2.5rem}
+.kit-meta{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const PRODUCTS = {
+  comfort_shirt: {
+    id:'comfort_shirt',
+    name:'Comfort Shirt',
+    line:'Comfort',
+    material:'Tencel-Lyocell blend, 200gsm',
+    tagline:'Movement. Refined.',
+    desc:'Engineered from a Tencel-Lyocell blend, this shirt breathes as the day shifts. The drape is deliberate—structured enough for dinner, relaxed enough for morning walks. Minimal care requirements make it the quiet foundation of any travel wardrobe.',
+    use:'City · Flights · Restaurants',
+    care:'Machine wash cold, hang dry',
+    weight:'180g',
+    icon:'◻',
+    specs:[
+      {label:'Material',value:'Tencel 70% / Lyocell 30%'},
+      {label:'Weight',value:'180g'},
+      {label:'Fit',value:'Relaxed, tapered'},
+      {label:'Care',value:'Machine wash cold'},
+      {label:'Packability',value:'Compresses to 8×8cm'}
+    ]
+  },
+  comfort_pants: {
+    id:'comfort_pants',
+    name:'Comfort Pants',
+    line:'Comfort',
+    material:'Tencel-Lyocell blend, structured',
+    tagline:'Polished. Weightless.',
+    desc:'A trouser that looks intentional at every hour. The Tencel weave holds structure across long days while remaining breathable in warm climates. Two discreet side pockets. No elastic visible from the outside.',
+    use:'City · Business · Evenings',
+    care:'Machine wash cold',
+    weight:'290g',
+    icon:'▭',
+    specs:[
+      {label:'Material',value:'Tencel 65% / Lyocell 35%'},
+      {label:'Weight',value:'290g'},
+      {label:'Fit',value:'Straight, mid-rise'},
+      {label:'Care',value:'Machine wash cold'},
+      {label:'Packability',value:'Compresses to 12×10cm'}
+    ]
+  },
+  adventure_shirt: {
+    id:'adventure_shirt',
+    name:'Adventure Shirt',
+    line:'Adventure',
+    material:'Recycled nylon / merino blend',
+    tagline:'Resilient. Quiet.',
+    desc:'Built for routes that don\'t follow the plan. Recycled nylon handles abrasion; merino regulates temperature and suppresses odor for multi-day wear. Four-way stretch with hidden document pocket. Dries fast. Looks considered.',
+    use:'Movement · Trails · Long transits',
+    care:'Machine wash cold, lay flat',
+    weight:'210g',
+    icon:'◻',
+    specs:[
+      {label:'Material',value:'Recycled Nylon 60% / Merino 40%'},
+      {label:'Weight',value:'210g'},
+      {label:'Fit',value:'Active, articulated'},
+      {label:'Care',value:'Machine wash cold'},
+      {label:'Packability',value:'Compresses to 9×9cm'}
+    ]
+  },
+  adventure_pants: {
+    id:'adventure_pants',
+    name:'Adventure Pants',
+    line:'Adventure',
+    material:'Recycled nylon / merino blend',
+    tagline:'Move without friction.',
+    desc:'Articulated at every bend. The recycled nylon shell resists abrasion and light weather; the merino lining maintains comfort across temperature shifts. Six pockets, all secured. Roll up to shorts with a single cuff fold.',
+    use:'Hiking · Outdoor · Travel days',
+    care:'Machine wash cold',
+    weight:'320g',
+    icon:'▭',
+    specs:[
+      {label:'Material',value:'Recycled Nylon 55% / Merino 45%'},
+      {label:'Weight',value:'320g'},
+      {label:'Fit',value:'Straight with articulated knee'},
+      {label:'Care',value:'Machine wash cold'},
+      {label:'Packability',value:'Compresses to 14×11cm'}
+    ]
+  },
+  comfort_layer: {
+    id:'comfort_layer',
+    name:'Comfort Layer',
+    line:'Comfort',
+    material:'Tencel fleece mid-layer',
+    tagline:'Warmth without weight.',
+    desc:'A Tencel fleece mid-layer that adds essential warmth without compromising the silhouette. Drapes softly over the Comfort Shirt or packs as a standalone piece for cool evenings in temperate cities.',
+    use:'Evenings · Layering · Light cold',
+    care:'Machine wash cold',
+    weight:'240g',
+    icon:'◈',
+    specs:[
+      {label:'Material',value:'Tencel Fleece 100%'},
+      {label:'Weight',value:'240g'},
+      {label:'Fit',value:'Regular'},
+      {label:'Care',value:'Machine wash cold'},
+      {label:'Packability',value:'Compresses to 10×9cm'}
+    ]
+  },
+  adventure_layer: {
+    id:'adventure_layer',
+    name:'Adventure Layer',
+    line:'Adventure',
+    material:'Recycled nylon shell, merino lined',
+    tagline:'Performance in cold.',
+    desc:'A wind-resistant, merino-lined outer layer designed for variable conditions. Packable into its own chest pocket. Built to handle cold mornings, wind exposure, and altitude shifts without the bulk of traditional insulation.',
+    use:'Mountains · Cold travel · High altitude',
+    care:'Machine wash cold, lay flat',
+    weight:'380g',
+    icon:'◈',
+    specs:[
+      {label:'Material',value:'Recycled Nylon shell / Merino lining'},
+      {label:'Weight',value:'380g'},
+      {label:'Fit',value:'Regular, packable'},
+      {label:'Care',value:'Machine wash cold, lay flat'},
+      {label:'Packability',value:'Packs into chest pocket'}
+    ]
+  }
+};
+
+const KIT_LOGIC = {
+  city: {
+    warm:   [{p:'comfort_shirt',q:2},{p:'comfort_pants',q:1}],
+    mild:   [{p:'comfort_shirt',q:2},{p:'comfort_pants',q:1},{p:'comfort_layer',q:1}],
+    cold:   [{p:'comfort_shirt',q:2},{p:'comfort_pants',q:2},{p:'comfort_layer',q:1}]
+  },
+  mixed: {
+    warm:   [{p:'comfort_shirt',q:1},{p:'adventure_shirt',q:1},{p:'comfort_pants',q:1},{p:'adventure_pants',q:1}],
+    mild:   [{p:'comfort_shirt',q:1},{p:'adventure_shirt',q:1},{p:'comfort_pants',q:1},{p:'adventure_pants',q:1},{p:'comfort_layer',q:1}],
+    cold:   [{p:'comfort_shirt',q:1},{p:'adventure_shirt',q:1},{p:'comfort_pants',q:1},{p:'adventure_pants',q:1},{p:'adventure_layer',q:1}]
+  },
+  adventure: {
+    warm:   [{p:'adventure_shirt',q:2},{p:'adventure_pants',q:1}],
+    mild:   [{p:'adventure_shirt',q:2},{p:'adventure_pants',q:1},{p:'comfort_shirt',q:1}],
+    cold:   [{p:'adventure_shirt',q:2},{p:'adventure_pants',q:2},{p:'adventure_layer',q:1}]
+  }
+};
+
+const TRIP_OPTIONS = [
+  {id:'city',label:'City & Lifestyle',desc:'Urban movement, flights, cultural immersion',icon:'◦'},
+  {id:'mixed',label:'Mixed Travel',desc:'City foundations with nature escapes',icon:'◉'},
+  {id:'adventure',label:'Adventure & Active',desc:'Trails, outdoor activity, dynamic terrain',icon:'●'}
+];
+const CLIMATE_OPTIONS = [
+  {id:'warm',label:'Warm',desc:'Mediterranean, tropical, sun-rich destinations',icon:'○'},
+  {id:'mild',label:'Mild & Mixed',desc:'Temperate, variable, layers advisable',icon:'◎'},
+  {id:'cold',label:'Cold',desc:'Alpine, northern, low-temperature conditions',icon:'◉'}
+];
+
+const TRIP_LABELS = {city:'City & Lifestyle',mixed:'Mixed Travel',adventure:'Adventure & Active'};
+const CLIMATE_LABELS = {warm:'Warm Climate',mild:'Mild & Mixed',cold:'Cold Climate'};
+
+let state = {
+  page: 'home',
+  step: 1,
+  tripType: null,
+  climate: null,
+  kit: null,
+  viewingProduct: null
+};
+
+function render(){
+  const app = document.getElementById('app');
+  const p = state.page;
+  let html = '';
+  if(p==='home') html = renderHome();
+  else if(p==='quiz') html = renderQuiz();
+  else if(p==='result') html = renderResult();
+  else if(p==='product') html = renderProduct();
+  app.innerHTML = html;
+  attachEvents();
+}
+
+function renderNav(hint){
+  return `<nav>
+    <button class="brand" onclick="goHome()" style="background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.35rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--soft-black);">Global Family</button>
+    <span class="nav-hint">${hint||'Travel Wardrobe System'}</span>
+  </nav>`;
+}
+
+function renderHome(){
+  return `<div class="page">
+    ${renderNav()}
+    <main class="hero">
+      <p class="hero-eyebrow">Travel Wardrobe System</p>
+      <h1 class="hero-title">Dress for<br><em>every journey.</em></h1>
+      <p class="hero-sub">Two questions. One curated kit. Designed around where you're going and how you'll move.</p>
+      <button class="start-btn" onclick="startQuiz()">
+        Build your kit <span class="arrow">→</span>
+      </button>
+      <div class="ornament"></div>
+    </main>
+  </div>`;
+}
+
+function renderQuiz(){
+  const step = state.step;
+  const opts = step===1 ? TRIP_OPTIONS : CLIMATE_OPTIONS;
+  const selected = step===1 ? state.tripType : state.climate;
+  const question = step===1
+    ? 'What kind of trip are you taking?'
+    : 'What climate will you experience?';
+  const sub = step===1
+    ? `Step 1 of 2 — Trip type`
+    : `Step 2 of 2 — Climate`;
+
+  const optHtml = opts.map(o=>`
+    <button class="option-card slide-in ${selected===o.id?'selected':''}" onclick="selectOption('${o.id}')">
+      <span class="option-icon">${o.icon}</span>
+      <span>
+        <span class="opt-label">${o.label}</span>
+        <span class="opt-desc">${o.desc}</span>
+      </span>
+    </button>
+  `).join('');
+
+  return `<div class="page fade-enter">
+    ${renderNav(sub)}
+    <div class="quiz-wrap">
+      <div class="step-indicator">
+        <div class="step-dot ${step>=1?'active':''}"></div>
+        <div class="step-dot ${step>=2?'active':''}"></div>
+      </div>
+      <h2 class="quiz-question">${question}</h2>
+      <p class="quiz-sub">Select the option that best describes your journey</p>
+      <div class="options-grid">${optHtml}</div>
+      <div class="quiz-nav">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <button class="next-btn ${selected?'ready':''}" id="next-btn" onclick="nextStep()">
+          ${step===1?'Next step →':'Generate my kit →'}
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderResult(){
+  const kit = state.kit;
+  if(!kit) return '';
+  const totalItems = kit.reduce((s,i)=>s+i.q,0);
+  const totalWeight = kit.reduce((s,i)=>s+(PRODUCTS[i.p].weight?parseInt(PRODUCTS[i.p].weight)*i.q:0),0);
+  const tripLabel = TRIP_LABELS[state.tripType]||'';
+  const climateLabel = CLIMATE_LABELS[state.climate]||'';
+
+  const cards = kit.map(item=>{
+    const p = PRODUCTS[item.p];
+    const isAdventure = p.line==='Adventure';
+    return `<div class="product-card slide-in" onclick="viewProduct('${p.id}')">
+      <span class="product-line-badge ${isAdventure?'badge-adventure':'badge-comfort'}">${p.line} Line</span>
+      <div class="product-qty">×${item.q}</div>
+      <h3 class="product-name">${p.name}</h3>
+      <p class="product-material">${p.material}</p>
+      <p class="product-desc">${p.tagline}</p>
+      <span class="product-arrow">View →</span>
+    </div>`;
+  }).join('');
+
+  return `<div class="page fade-enter">
+    ${renderNav('Your Travel Kit')}
+    <div class="result-wrap">
+      <p class="result-eyebrow">Kit generated</p>
+      <h2 class="result-title">Your Travel Kit</h2>
+      <p class="result-context">${tripLabel} · ${climateLabel}</p>
+      <div class="kit-meta">
+        <div class="kit-meta-item">
+          <span class="kit-meta-val">${totalItems}</span>
+          <span class="kit-meta-label">Pieces</span>
+        </div>
+        <div class="kit-meta-item">
+          <span class="kit-meta-val">${totalWeight}g</span>
+          <span class="kit-meta-label">Total weight</span>
+        </div>
+        <div class="kit-meta-item">
+          <span class="kit-meta-val">${kit.some(i=>PRODUCTS[i.p].line==='Comfort')&&kit.some(i=>PRODUCTS[i.p].line==='Adventure')?'Both':'One'}</span>
+          <span class="kit-meta-label">Product lines</span>
+        </div>
+      </div>
+      <div class="product-grid">${cards}</div>
+      <div class="result-actions">
+        <button class="action-primary">Add kit to bag →</button>
+        <button class="action-secondary" onclick="startQuiz()">Rebuild my kit</button>
+        <button class="action-secondary" onclick="goHome()">Start over</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderProduct(){
+  const p = PRODUCTS[state.viewingProduct];
+  if(!p) return '';
+  const isAdventure = p.line==='Adventure';
+  const specs = p.specs.map(s=>`<div class="spec-row">
+    <span class="spec-label">${s.label}</span>
+    <span class="spec-value">${s.value}</span>
+  </div>`).join('');
+
+  return `<div class="page fade-enter">
+    ${renderNav(p.line+' Line')}
+    <div class="product-detail">
+      <button class="back-nav" onclick="goResult()">← Back to my kit</button>
+      <div class="detail-grid">
+        <div class="detail-visual">
+          <span class="detail-visual-inner">${p.icon}</span>
+          <div style="position:absolute;bottom:1.5rem;left:1.5rem;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted-stone);">${p.use}</div>
+        </div>
+        <div>
+          <span class="detail-line-badge ${isAdventure?'badge-adventure':'badge-comfort'}">${p.line} Line</span>
+          <h1 class="detail-name">${p.name}</h1>
+          <p class="detail-tagline">${p.tagline}</p>
+          <p class="detail-desc">${p.desc}</p>
+          <div style="margin-bottom:1.5rem">${specs}</div>
+          <button class="detail-cta">Add to kit →</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function attachEvents(){}
+
+function startQuiz(){state.page='quiz';state.step=1;state.tripType=null;state.climate=null;render()}
+function goHome(){state.page='home';render()}
+function goResult(){state.page='result';render()}
+function goBack(){
+  if(state.page==='quiz'&&state.step===2){state.step=1;render()}
+  else if(state.page==='quiz'&&state.step===1){state.page='home';render()}
+  else if(state.page==='product'){state.page='result';render()}
+  else{state.page='home';render()}
+}
+function selectOption(id){
+  if(state.step===1) state.tripType=id;
+  else state.climate=id;
+  render();
+}
+function nextStep(){
+  if(state.step===1&&state.tripType){state.step=2;render()}
+  else if(state.step===2&&state.climate){generateKit()}
+}
+function generateKit(){
+  const kit = KIT_LOGIC[state.tripType]&&KIT_LOGIC[state.tripType][state.climate];
+  if(kit){state.kit=kit;state.page='result';render()}
+}
+function viewProduct(id){state.viewingProduct=id;state.page='product';render()}
+window.goHome=goHome;
+window.startQuiz=startQuiz;
+window.goBack=goBack;
+window.selectOption=selectOption;
+window.nextStep=nextStep;
+window.viewProduct=viewProduct;
+window.goResult=goResult;
+
+render();
+</script>
+</body>
+</html>
